@@ -315,145 +315,60 @@ class Reservation
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Q4] Create a Java class named "Reservation" to manage hotel room reservations. Develop methods to the reservation details from the user and print it. 
-a)	Implement a try-and-catch block to handle potential errors that may arise during reservation initialization and display, such as negative guest numbers or null reservation dates. Print relevant error messages. 
-b)	Use multiple catch statements to handle distinct types of exceptions, like negative room numbers or null guest names. Handle these exceptions separately during both initialization and display operations. 
-c)	Introduce a finally block to ensure cleanup operations, guaranteeing proper resource management regardless of whether an exception occurred. Verify the class by testing instances created using each constructor to confirm correct exception handling and resource cleanup in a hotel room reservation system. 
- 
-class Reservation 
-{    
-     private int roomNumber;   
-       private String guestName;   
-         private Date reservationDate; 
- 
-    public Reservation(int roomNumber, String guestName, Date reservationDate) {     
-            try { 
-            if (roomNumber <= 0) { 
-                throw new IllegalArgumentException("Room number must be a positive integer.");            
-                4 } 
-            if (guestName == null || guestName.trim().isEmpty()) {          
-                       throw new IllegalArgumentException("Guest name cannot be null or empty.");       
-                             } 
-            if (reservationDate == null) { 
-                throw new IllegalArgumentException("Reservation date cannot be null."); 
-            } 
-             this.roomNumber = roomNumber;           
-               this.guestName = guestName; 
-            this.reservationDate = reservationDate;  
-        } catch (IllegalArgumentException e) { 
-            System.out.println("Error during reservation initialization: "+ e.getMessage()); 
-        } 
-    }  
-    public void displayReservationDetails() {       
-          try { 
-            if (roomNumber <= 0) { 
-                throw new IllegalArgumentException("Room number must be a positive integer.");         
-                    } 
-            if (guestName == null || guestName.trim().isEmpty()) {               
-                  throw new IllegalArgumentException("Guest name cannot be null or empty.");        
-                       } 
-            if (reservationDate == null) { 
-                throw new IllegalArgumentException("Reservation date cannot be null.");       
-                      } 
- 
-            System.out.println("Reservation Details:"); 
-            System.out.println("Room Number: " + roomNumber); 
-            System.out.println("Guest Name: " + guestName); 
-            System.out.println("Reservation Date: " + reservationDate);  
-        } catch (IllegalArgumentException e) { 
-            System.out.println("Error during displaying reservation details: " + e.getMessage()); 
-        } finally { 
-            // Cleanup operations (if any) 
-            System.out.println("Cleaning up resources..."); 
-        } 
-    }  
-    public static void main(String[] args) { 
-        // Test cases 
-        Reservation validReservation = new Reservation(101, "John Doe", new Date()); 
-        validReservation.displayReservationDetails(); 
- 
-        Reservation invalidRoomNumber = new Reservation(-1, "Jane Doe", new Date()); 
-        invalidRoomNumber.displayReservationDetails();  
-        Reservation invalidGuestName = new Reservation(102, null, new Date()); 
-        invalidGuestName.displayReservationDetails();  
-        Reservation invalidReservationDate = new Reservation(103, "Alice", null); 
-        invalidReservationDate.displayReservationDetails(); 
-    } 
-} 
+Q4] Develop a Java Application using Multithreading  
+   
+public class main {
+    public static void main(String[] args) {       
+   int maxCount = 30; // Define the maximum number to count     
+   int numThreads = 3; // Define the number of threads to use   
+        // Create and start threads  
+        CounterThread[] threads = new 
+CounterThread[numThreads];      
+   int countPerThread = maxCount / numThreads;      
+      int start = 1;        
+        int end = countPerThread;   
+             for (int i = 0; i < numThreads; i++) {      
+                       threads[i] = new CounterThread(start, end);    
+                                threads[i].start();        
+                                     start = end + 1;     
+                                             end += countPerThread;    
+                                                 if (i == numThreads - 2) {  
+                end = maxCount; // Adjust the last thread's end value   
+                       }  
+        }  
+  
+        // Wait for all threads to finish       
+          for (CounterThread thread : threads) {        
+                 try {  
+                thread.join();  
+            } catch (InterruptedException e) {     
+                             e.printStackTrace();  
+            }  
+        }
+
+    System.out.println("Counting completed.");
+}}
+
+class CounterThread extends Thread {
+    private int start;
+    private int end;
+
+    public CounterThread(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public void run() {
+        for (int i = start; i <= end; i++) {
+            System.out.println(Thread.currentThread().getName() + ": " + i);
+        }
+    }
+}
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-Q5] Create a Java class named "Reservation" to manage hotel room reservations. Develop methods to the reservation details from the user and print it. 
-a)	Implement a try-and-catch block to handle potential errors that may arise during reservation initialization and display, such as negative guest numbers or null reservation dates. Print relevant error messages. 
-b)	Use multiple catch statements to handle distinct types of exceptions, like negative room numbers or null guest names. Handle these exceptions separately during both initialization and display operations. 
-c)	Introduce a finally block to ensure cleanup operations, guaranteeing proper resource management regardless of whether an exception occurred. Verify the class by testing instances created using each constructor to confirm correct exception handling and resource cleanup in a hotel room reservation system. 
- 
-Source Code: 
-class Reservation 
-{    
-     private int roomNumber;   
-       private String guestName;   
-         private Date reservationDate; 
- 
-    public Reservation(int roomNumber, String guestName, Date reservationDate) {     
-            try { 
-            if (roomNumber <= 0) { 
-                throw new IllegalArgumentException("Room number must be a positive integer.");            
-                4 } 
-            if (guestName == null || guestName.trim().isEmpty()) {          
-                       throw new IllegalArgumentException("Guest name cannot be null or empty.");       
-                             } 
-            if (reservationDate == null) { 
-                throw new IllegalArgumentException("Reservation date cannot be null."); 
-            } 
-             this.roomNumber = roomNumber;           
-               this.guestName = guestName; 
-            this.reservationDate = reservationDate;  
-        } catch (IllegalArgumentException e) { 
-            System.out.println("Error during reservation initialization: "+ e.getMessage()); 
-        } 
-    }  
-    public void displayReservationDetails() {       
-          try { 
-            if (roomNumber <= 0) { 
-                throw new IllegalArgumentException("Room number must be a positive integer.");         
-                    } 
-            if (guestName == null || guestName.trim().isEmpty()) {               
-                  throw new IllegalArgumentException("Guest name cannot be null or empty.");        
-                       } 
-            if (reservationDate == null) { 
-                throw new IllegalArgumentException("Reservation date cannot be null.");       
-                      } 
- 
-            System.out.println("Reservation Details:"); 
-            System.out.println("Room Number: " + roomNumber); 
-            System.out.println("Guest Name: " + guestName); 
-            System.out.println("Reservation Date: " + reservationDate);  
-        } catch (IllegalArgumentException e) { 
-            System.out.println("Error during displaying reservation details: " + e.getMessage()); 
-        } finally { 
-            // Cleanup operations (if any) 
-            System.out.println("Cleaning up resources..."); 
-        } 
-    }  
-    public static void main(String[] args) { 
-        // Test cases 
-        Reservation validReservation = new Reservation(101, "John Doe", new Date()); 
-        validReservation.displayReservationDetails(); 
- 
-        Reservation invalidRoomNumber = new Reservation(-1, "Jane Doe", new Date()); 
-        invalidRoomNumber.displayReservationDetails();  
-        Reservation invalidGuestName = new Reservation(102, null, new Date()); 
-        invalidGuestName.displayReservationDetails();  
-        Reservation invalidReservationDate = new Reservation(103, "Alice", null); 
-        invalidReservationDate.displayReservationDetails(); 
-    } 
-} 
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 Q5] Develop an application to demonstrate the use of Java Collections Framework: ArrayList.
@@ -498,72 +413,49 @@ class ArrayListDemo {
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Q6] Create a Java class named "Reservation" to manage hotel room reservations. Develop methods to the reservation details from the user and print it. 
-a)	Implement a try-and-catch block to handle potential errors that may arise during reservation initialization and display, such as negative guest numbers or null reservation dates. Print relevant error messages. 
-b)	Use multiple catch statements to handle distinct types of exceptions, like negative room numbers or null guest names. Handle these exceptions separately during both initialization and display operations. 
-c)	Introduce a finally block to ensure cleanup operations, guaranteeing proper resource management regardless of whether an exception occurred. Verify the class by testing instances created using each constructor to confirm correct exception handling and resource cleanup in a hotel room reservation system. 
- 
-class Reservation 
-{    
-     private int roomNumber;   
-       private String guestName;   
-         private Date reservationDate; 
- 
-    public Reservation(int roomNumber, String guestName, Date reservationDate) {     
-            try { 
-            if (roomNumber <= 0) { 
-                throw new IllegalArgumentException("Room number must be a positive integer.");            
-                4 } 
-            if (guestName == null || guestName.trim().isEmpty()) {          
-                       throw new IllegalArgumentException("Guest name cannot be null or empty.");       
-                             } 
-            if (reservationDate == null) { 
-                throw new IllegalArgumentException("Reservation date cannot be null."); 
-            } 
-             this.roomNumber = roomNumber;           
-               this.guestName = guestName; 
-            this.reservationDate = reservationDate;  
-        } catch (IllegalArgumentException e) { 
-            System.out.println("Error during reservation initialization: "+ e.getMessage()); 
-        } 
-    }  
-    public void displayReservationDetails() {       
-          try { 
-            if (roomNumber <= 0) { 
-                throw new IllegalArgumentException("Room number must be a positive integer.");         
-                    } 
-            if (guestName == null || guestName.trim().isEmpty()) {               
-                  throw new IllegalArgumentException("Guest name cannot be null or empty.");        
-                       } 
-            if (reservationDate == null) { 
-                throw new IllegalArgumentException("Reservation date cannot be null.");       
-                      } 
- 
-            System.out.println("Reservation Details:"); 
-            System.out.println("Room Number: " + roomNumber); 
-            System.out.println("Guest Name: " + guestName); 
-            System.out.println("Reservation Date: " + reservationDate);  
-        } catch (IllegalArgumentException e) { 
-            System.out.println("Error during displaying reservation details: " + e.getMessage()); 
-        } finally { 
-            // Cleanup operations (if any) 
-            System.out.println("Cleaning up resources..."); 
-        } 
-    }  
-    public static void main(String[] args) { 
-        // Test cases 
-        Reservation validReservation = new Reservation(101, "John Doe", new Date()); 
-        validReservation.displayReservationDetails(); 
- 
-        Reservation invalidRoomNumber = new Reservation(-1, "Jane Doe", new Date()); 
-        invalidRoomNumber.displayReservationDetails();  
-        Reservation invalidGuestName = new Reservation(102, null, new Date()); 
-        invalidGuestName.displayReservationDetails();  
-        Reservation invalidReservationDate = new Reservation(103, "Alice", null); 
-        invalidReservationDate.displayReservationDetails(); 
-    } 
-} 
+Q6] JDBC Connectivity: Develop an application to demonstrate JDBC connectivity
 
+
+import java.sql.*;
+
+public class vishwakarma{
+   static final String DB_URL = "jdbc:mysql://localhost/college";
+   static final String USER = "root";
+   static final String PASS = "root";
+   static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS jdbc_test (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), street VARCHAR(255), city VARCHAR(255), state VARCHAR(255), zip VARCHAR(10))";
+   static final String INSERT_QUERY = "INSERT INTO jdbc_test (name, street, city, state, zip) VALUES ('Vishwakarma', 'Kondwa', 'pune', 'MH', '001')";
+   static final String SELECT_QUERY = "SELECT * FROM jdbc_test";
+
+   public static void main(String[] args) {
+      // Open a connection
+      try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = con.createStatement();) {
+         // Create table if not exists
+         stmt.executeUpdate(CREATE_TABLE_QUERY);
+         System.out.println("Table created successfully.");
+
+         // Insert sample data
+         int rowsAffected = stmt.executeUpdate(INSERT_QUERY);
+         System.out.println(rowsAffected + " row(s) inserted.");
+
+         // Execute select query
+         ResultSet rs = stmt.executeQuery(SELECT_QUERY);
+         // Extract data from result set
+         while (rs.next()) {
+            // Retrieve by column name
+            System.out.print("ID: " + rs.getInt("id"));
+            System.out.print(", Name: " + rs.getString("name"));
+            System.out.print(", Street: " + rs.getString("street"));
+            System.out.println(", City: " + rs.getString("city"));
+            System.out.println(", State: " + rs.getString("state"));
+            System.out.println(", ZIP: " + rs.getString("zip"));
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
+   }
+}
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
