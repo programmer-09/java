@@ -79,13 +79,13 @@ class Animal {
 class Dog extends Animal {
     @Override
     public void makeSound() {
-        System.out.println("hii! hii!");
+        System.out.println("Bark!");
     }
 
     // Overloaded method for demonstrating compile-time polymorphism
     public void makeSound(int times) {
         for (int i = 0; i < times; i++) {
-            System.out.println("hello");
+            System.out.println("Bark");
         }
     }
 }
@@ -93,7 +93,7 @@ class Dog extends Animal {
 class Cat extends Animal {
     @Override
     public void makeSound() {
-        System.out.println("hey! hey!");
+        System.out.println("Meow!");
     }
 
     // Overloaded method for demonstrating compile-time polymorphism
